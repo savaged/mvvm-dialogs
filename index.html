@@ -20,7 +20,7 @@
     <header>
       <div class="inner">
         <h1>MVVM Dialogs</h1>
-        <h2>Framework simplifying the concept of opening dialogs from a view model when using MVVM in WPF</h2>
+        <h2>Framework simplifying the concept of opening dialogs from a view model when using MVVM in WPF or UWP</h2>
         <a href="https://github.com/FantasticFiasco/mvvm-dialogs" class="button"><small>View project on</small> GitHub</a>
       </div>
     </header>
@@ -31,9 +31,9 @@
           <h3>
 <a id="introduction" class="anchor" href="#introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Introduction</h3>
 
-<p>MVVM Dialogs is a framework simplifying the concept of opening dialogs from a view model when using MVVM in WPF. It enables the developer to easily write unit tests for view models in the same manner unit tests are written for other classes.</p>
+<p>MVVM Dialogs is a framework simplifying the concept of opening dialogs from a view model when using MVVM in WPF or UWP. It enables the developer to easily write unit tests for view models in the same manner unit tests are written for other classes.</p>
 
-<p>The framework has built in support for opening the following dialogs:</p>
+<p>The framework has built in support for the following dialogs in WPF:</p>
 
 <ul>
 <li>Modal window</li>
@@ -44,8 +44,19 @@
 <li>Folder browser dialog</li>
 </ul>
 
+<p>The framework has built in support for the following dialogs in UWP:</p>
+
+<ul>
+<li>Content dialog</li>
+<li>Message dialog</li>
+<li>Single file picker</li>
+<li>Multiple files picker</li>
+<li>Save file picker</li>
+<li>Single folder picker</li>
+</ul>
+
 <h3>
-<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h3>
+<a id="wpfusage" class="anchor" href="#wpfusage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>WPF usage</h3>
 
 <p>To open a modal window, decorate the view with the attached property <code>DialogServiceViews.IsRegistered</code>:</p>
 
@@ -79,6 +90,34 @@
 
         <span class="pl-k">bool</span>? success = dialogService.ShowDialog(<span class="pl-c1">this</span>, dialogViewModel);
         <span class="pl-k">if</span> (success == <span class="pl-c1">true</span>)
+        {
+            Texts.Add(dialogViewModel.Text);
+        }
+    }
+}</pre></div>
+
+<h3>
+<a id="uwpusage" class="anchor" href="#uwpusage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>UWP usage</h3>
+
+<p>With UWP you don't need to register the view, simply open the dialog using the interface <code>IDialogService</code>:</p>
+
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">MainPageViewModel</span> : <span class="pl-k">INotifyPropertyChanged</span>
+{
+    <span class="pl-k">private</span> <span class="pl-k">readonly</span> IDialogService dialogService;
+
+    <span class="pl-k">public</span> <span class="pl-en">MainPageViewModel</span>(<span class="pl-k">IDialogService</span> <span class="pl-smi">dialogService</span>)
+    {
+        <span class="pl-c1">this</span>.dialogService = dialogService;
+    }
+
+    ...
+
+    <span class="pl-k">private</span> <span class="pl-k">async</span> <span class="pl-k">void</span> <span class="pl-en">ShowContentDialog</span>()
+    {
+        var dialogViewModel = new AddTextContentDialogViewModel();
+
+        <span class="pl-k">ContentDialogResult</span> result = <span class="pl-k">await</span> dialogService.ShowContentDialogAsync(dialogViewModel);
+        <span class="pl-k">if</span> (result == ContentDialogResult.Primary)
         {
             Texts.Add(dialogViewModel.Text);
         }
