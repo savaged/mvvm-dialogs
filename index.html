@@ -116,7 +116,7 @@
     {
         var dialogViewModel = new AddTextContentDialogViewModel();
 
-        <span class="pl-k">ContentDialogResult</span> result = <span class="pl-k">await</span> dialogService.ShowContentDialogAsync(dialogViewModel);
+        ContentDialogResult result = <span class="pl-k">await</span> dialogService.ShowContentDialogAsync(dialogViewModel);
         <span class="pl-k">if</span> (result == ContentDialogResult.Primary)
         {
             Texts.Add(dialogViewModel.Text);
