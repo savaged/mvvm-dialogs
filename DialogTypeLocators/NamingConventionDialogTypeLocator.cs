@@ -38,7 +38,7 @@ namespace MvvmDialogs.DialogTypeLocators
             }
 
             string dialogName = GetDialogName(viewModelType);
-
+            
             // Savaged: Added this for Mvvm projects where views follow the naming convention but are in a separate project or dll
             dialogType = GetAssemblyFromType(viewModelType).GetType(dialogName) ?? GetReferencedAssembly().GetType(dialogName);
 
@@ -46,7 +46,7 @@ namespace MvvmDialogs.DialogTypeLocators
                 throw new TypeLoadException(AppendInfoAboutDialogTypeLocators($"Dialog with name '{dialogName}' is missing."));
 
             Cache.Add(viewModelType, dialogType);
-
+            
             return dialogType;
         }
 
