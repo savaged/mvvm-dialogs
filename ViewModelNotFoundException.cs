@@ -6,6 +6,7 @@ namespace MvvmDialogs
 	/// Exception thrown by <see cref="IDialogService"/>
 	/// </summary>
 	/// <seealso cref="System.Exception" />
+	[Serializable]
 	public class ViewModelNotFoundException : Exception
 	{
 		public ViewModelNotFoundException(Type viewModelType)
