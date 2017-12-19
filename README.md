@@ -6,3 +6,5 @@ Forked first following the request for change to the issue with solutions having
 https://github.com/FantasticFiasco/mvvm-dialogs/issues/27 
 
 This version allows the standard dialog locator (based on naming convention) to work with separated projects.
+
+NOTE: The plan is to retire this version and replace it with a [contrib](https://github.com/FantasticFiasco/mvvm-dialogs-contrib) extension to the main mvvm-dialogs.
